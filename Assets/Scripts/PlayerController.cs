@@ -5,30 +5,35 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     public Rigidbody2D rb;
-    public Transform groundCheck;
-    public LayerMask ground;
-    public float moveSpeed = 200f;
-    public float sprintSpeed = 400f;
-    public float jumpForce = 500f;
 
-    private float horizontalMove = 0f;
+    //MOVE VARS
+    public float moveSpeed = 250f;
+    public float sprintSpeed = 500f;
+    private float horizontalIntensity = 0f;
     private float sprint = 0f;
+    private bool onTheAir = false;
+
+    //JUMP VARS
     private bool jump = false;
+    public float jumpForce = 250000f;
     //0 - no jump,  1 - first jump,  2 - second jump
     private int jumpState = 0;
     //check if the the user released the jump button so it can jump again
     private bool jumpRelease = true;
-    private bool onTheGround = true;
-    private float playerWidth;
 
+    //KICK VARS
+    public float kickForce = 600f;
+    private bool kick = false;
+    private bool kickRelease = true;
+    private float verticalIntensity = 0;
+    private Rigidbody2D ball;
 
-    void Start() {
-        playerWidth = GetComponent<SpriteRenderer>().bounds.size.x;
-    }
+    //1 -> facing right, -1 -> facing left
+    private int direction = 1;
 
 
     void Update() {
-        horizontalMove = Input.GetAxisRaw("Horizontal");
+        horizontalIntensity = Input.GetAxisRaw("Horizontal");
         sprint = Input.GetAxisRaw("Sprint") + Input.GetAxisRaw("SprintC");
 
         if (Input.GetAxisRaw("Jump") != 0) {
@@ -39,45 +44,44 @@ public class PlayerController : MonoBehaviour {
                     jump = true;
                     jumpRelease = false;
                 }
-                else {
-                    jump = false;
-                }
-            }
-            else {
-                jump = false;
             }
         }
         else {
-            jump = false;
             jumpRelease = true;
         }
+
+        if (Input.GetAxisRaw("Kick") != 0) {
+            if (kickRelease) {
+                kick = true;
+                kickRelease = false;
+            }
+        }
+        else {
+            kickRelease = true;
+        }
+
+        verticalIntensity = Input.GetAxisRaw("Vertical");
     }
 
 
     void FixedUpdate() {
-        updateMovement();
-        updateOnTheGround();
+        UpdateMovement();
+
+        if (kick)
+            Kick();
+
+        if ((direction == -1 && horizontalIntensity > 0)
+            || (direction == 1) && horizontalIntensity < 0)
+            Flip();
     }
 
 
-    void updateOnTheGround() {
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(groundCheck.position, new Vector2(playerWidth / 4f, 0f), 0, ground);
-        onTheGround = false;
-        foreach (Collider2D c in colliders)
-            if (c.gameObject != gameObject)
-                onTheGround = true;
-
-        if (onTheGround)
-            jumpState = 0;
-    }
-
-
-    void updateMovement() {
+    void UpdateMovement() {
         float xVel = 0f;
-        if (sprint == 0)
-            xVel = horizontalMove * moveSpeed * Time.fixedDeltaTime;
+        if (sprint == 0 || onTheAir)
+            xVel = horizontalIntensity * moveSpeed * Time.fixedDeltaTime;
         else
-            xVel = horizontalMove * sprintSpeed * Time.fixedDeltaTime;
+            xVel = horizontalIntensity * sprintSpeed * Time.fixedDeltaTime;
 
         rb.velocity = new Vector2(xVel, rb.velocity.y);
 
@@ -85,6 +89,41 @@ public class PlayerController : MonoBehaviour {
             float yForce = jumpForce * Time.fixedDeltaTime;
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(new Vector2(0, yForce));
+            jump = false;
         }
+    }
+
+
+    void Kick() {
+        if (ball) {
+            Vector2 force = new Vector2(1f, verticalIntensity) * kickForce * direction;
+            ball.AddForce(force);
+        }
+        kick = false;
+    }
+
+    
+    void Flip() {
+        direction = -1 * direction;
+        transform.Rotate(0f, 180f, 0f);
+    }
+
+
+    public void OnTheGround() {
+        jumpState = 0;
+        onTheAir = false;
+    }
+
+
+    public void OffTheGround() {
+        onTheAir = true;
+    }
+
+    public void BallInRange(Rigidbody2D ball) {
+        this.ball = ball;
+    }
+
+    public void BallOutOfRange() {
+        ball = null;
     }
 }
