@@ -61,10 +61,10 @@ public class GameManager : MonoBehaviour {
     }
 
     private void ResetPlayers() {
-        player1.transform.position = new Vector2(-6.93f, -3.51f);
+        player1.transform.position = new Vector2(-6.93f, -3.54f);
         player1Controller.ResetTransform();
 
-        player2.transform.position = new Vector2(6.93f, -3.51f);
+        player2.transform.position = new Vector2(6.93f, -3.54f);
         player2Controller.ResetTransform();
     }
 }

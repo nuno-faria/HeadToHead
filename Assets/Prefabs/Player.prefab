@@ -532,12 +532,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3140466039865338677}
+  nameP: P1
   moveSpeed: 250
   sprintSpeed: 500
   xVelocityMomentum: 0.85
   jumpForce: 250000
-  kickForce: 800
-  maxKickHoldTime: 0.7
+  kickForce: 1000
+  maxKickHoldTime: 0.75
   kickPowerSlider: {fileID: 1807048616}
   liftForce: 500
   stopPower: 0.15
+  defaultDirection: 1

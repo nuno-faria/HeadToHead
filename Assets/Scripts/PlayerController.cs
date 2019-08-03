@@ -27,13 +27,13 @@ public class PlayerController : MonoBehaviour {
     private bool jumpRelease = true;
 
     //KICK VARS
-    public float kickForce = 800f;
+    public float kickForce = 1000f;
     private bool kick = false;
     private bool kickRelease = true;
     private float verticalInput = 0;
     private float verticalIntensity = 0;
     //maximum time need for full power kick (seconds)
-    public float maxKickHoldTime = 1f;
+    public float maxKickHoldTime = 0.75f;
     private float kickHoldTime = 0f;
     public Image kickPowerSlider;
 
