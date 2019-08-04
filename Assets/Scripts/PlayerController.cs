@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 
     public Rigidbody2D rb;
-
+    public Animator animator;
     public string nameP = "P1";
 
     //MOVE VARS
@@ -113,6 +113,9 @@ public class PlayerController : MonoBehaviour {
 
         //stop
         stop = Input.GetAxisRaw("Stop" + nameP) != 0;
+
+        animator.SetFloat("xVelAbs", Mathf.Abs(rb.velocity.x));
+        animator.SetFloat("yVel", rb.velocity.y);
     }
 
 
@@ -145,6 +148,7 @@ public class PlayerController : MonoBehaviour {
         xVel = xVel * (1 - xVelocityMomentum) + rb.velocity.x * xVelocityMomentum;
         rb.velocity = new Vector2(xVel, rb.velocity.y);
 
+ 
         if (jump) {
             float yForce = jumpForce * Time.fixedDeltaTime;
             rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -164,7 +168,9 @@ public class PlayerController : MonoBehaviour {
         kick = false;
         kickHoldTime = 0f;
         kickPowerSlider.fillAmount = 0;
+        animator.SetBool("kick", true);
     }
+
 
     void Lift() {
         if (ball) {
@@ -172,7 +178,9 @@ public class PlayerController : MonoBehaviour {
             ball.AddForce(force);
         }
         lift = false;
+        animator.SetBool("kick", true);
     }
+
 
     void Stop() {
         if (ball) {
@@ -201,13 +209,16 @@ public class PlayerController : MonoBehaviour {
         onTheAir = true;
     }
 
+
     public void BallInRange(Rigidbody2D ball) {
         this.ball = ball;
     }
 
+
     public void BallOutOfRange() {
         ball = null;
     }
+
 
     public void ResetTransform() {
         direction = defaultDirection;
@@ -216,4 +227,8 @@ public class PlayerController : MonoBehaviour {
         kickPowerSlider.transform.eulerAngles = rotation;
     }
 
+
+    public void kickEnded() {
+        animator.SetBool("kick", false);
+    }
 }
