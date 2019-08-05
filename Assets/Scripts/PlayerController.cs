@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
 
     public Rigidbody2D rb;
     public Animator animator;
-    public string nameP = "P1";
+    public string nameP;
 
     //MOVE VARS
     public float moveSpeed = 250f;
@@ -55,9 +55,39 @@ public class PlayerController : MonoBehaviour {
     private int direction;
 
 
+    //COLOR
+    public Color color;
+    public Texture2D swapTex;
+    public Shader shader;
+
+
     void Start() {
         kickPowerSlider.fillAmount = 0f;
         direction = defaultDirection;
+        SetUpMaterial();
+    }
+
+
+    void SetUpMaterial() {
+        //secondary color (darker version of 'color')
+        float H, S, V;
+        Color.RGBToHSV(color, out H, out S, out V);
+        Color secondary = Color.HSVToRGB(H, S, V * 0.9f);
+
+        //create new texture with the wanted colors
+        Texture2D texture = new Texture2D(256, 1, TextureFormat.RGBA32, false, false);
+        texture.filterMode = FilterMode.Point;
+        texture.SetPixels(swapTex.GetPixels());
+        texture.SetPixel(248, 0, color);
+        texture.SetPixel(216, 0, secondary);
+        texture.Apply();
+
+        //add texture to shader (new material)
+        Material mat = new Material(shader);
+        mat.SetTexture("_SwapTex", texture);
+
+        //add material to sprite
+        GetComponent<SpriteRenderer>().material = mat;
     }
 
 

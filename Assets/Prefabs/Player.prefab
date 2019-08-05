@@ -330,8 +330,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.6124, y: -1.436}
-  m_SizeDelta: {x: 0.5205, y: 0.0859}
+  m_AnchoredPosition: {x: -3.607, y: -1.44}
+  m_SizeDelta: {x: 0.2433, y: 0.0706}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1807048617
 CanvasRenderer:
@@ -546,6 +546,9 @@ MonoBehaviour:
   liftForce: 500
   stopPower: 0.15
   defaultDirection: 1
+  color: {r: 0.043137256, g: 0.5137255, b: 0.9725491, a: 1}
+  swapTex: {fileID: 2800000, guid: 336607499ddb46a4bbff7b229b7b6977, type: 3}
+  shader: {fileID: 4800000, guid: 953341baca9e3f64c8fb412fe0969b5f, type: 3}
 --- !u!95 &1757877174
 Animator:
   serializedVersion: 3
