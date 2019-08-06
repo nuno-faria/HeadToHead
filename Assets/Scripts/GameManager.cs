@@ -17,11 +17,19 @@ public class GameManager : MonoBehaviour {
     public TextMeshProUGUI scoreText;
     public Color colorP1;
     public Color colorP2;
+    public string gameType;
 
     private int scoreP1 = 0;
     private int scoreP2 = 0;
     private string colorP1S;
     private string colorP2S;
+
+    //volley only (to control max time on each area)
+    [Header("Volley Specific Vars")]
+    public float maxTimeInArea = 7f; //seconds, 0 -> no limit
+    public TextMeshProUGUI volleyTimerText;
+    private char lastArea = '0';
+    private float areaTimer = 0;
 
 
     void Start() {
@@ -36,11 +44,36 @@ public class GameManager : MonoBehaviour {
     }
 
 
+    void Update() {
+        if (gameType == "volley" && maxTimeInArea > 0) {
+            areaTimer += Time.deltaTime;
+            volleyTimerText.SetText(Mathf.CeilToInt(maxTimeInArea - areaTimer).ToString());
+
+            //round over
+            if (areaTimer >= maxTimeInArea) {
+                NewRound(lastArea);
+            }
+            else {
+                char currentArea = ball.transform.position.x < 0 ? '1' : '2';
+                //area change, reset timer
+                if (currentArea != lastArea)
+                    areaTimer = 0;
+                lastArea = currentArea;
+            }
+        } 
+    }
+
+
     public void NewRound(char concedingPlayer) {
         if (concedingPlayer == '1')
             scoreP2++;
         else
             scoreP1++;
+
+        if (gameType == "volley" && maxTimeInArea > 0) {
+            areaTimer = 0;
+            lastArea = '0';
+        }
 
         UpdateText();
         ResetBall();
@@ -54,11 +87,20 @@ public class GameManager : MonoBehaviour {
                          "<color=" + colorP2S + ">" + scoreP2;
     }
 
+
     private void ResetBall() {
-        ballRb.velocity = Vector2.zero;
+        if (gameType != "volley") {
+            ballRb.velocity = Vector2.zero;
+        }
+        else {
+            float direction = Random.Range(-1f, 1f) <= 0 ? -1 : 1;
+            ballRb.velocity = new Vector2(direction * 4f, Random.Range(2f, 4f));
+        }
+
         ballRb.angularVelocity = 0;
         ball.transform.position = new Vector2(0f, Random.Range(0f, 4f));
     }
+
 
     private void ResetPlayers() {
         player1.transform.position = new Vector2(-6.93f, -3.54f);

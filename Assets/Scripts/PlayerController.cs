@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour {
 
     void UpdateMovement() {
         float xVel = 0f;
-        if (sprint == 0 || onTheAir)
+        if (sprint == 0)
             xVel = horizontalIntensity * moveSpeed * Time.fixedDeltaTime;
         else
             xVel = horizontalIntensity * sprintSpeed * Time.fixedDeltaTime;
@@ -181,7 +181,7 @@ public class PlayerController : MonoBehaviour {
  
         if (jump) {
             float yForce = jumpForce * Time.fixedDeltaTime;
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.velocity = new Vector2(rb.velocity.x * 0.5f, 0);
             rb.AddForce(new Vector2(0, yForce));
             jump = false;
         }

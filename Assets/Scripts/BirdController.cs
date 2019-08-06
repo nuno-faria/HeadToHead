@@ -16,7 +16,8 @@ public class BirdController : MonoBehaviour {
 
 
     private void Start() {
-        transform.position = new Vector2(allowedX[0], Random.Range(allowedY[0], allowedY[1]));
+        transform.position = new Vector2(Random.Range(allowedX[0], allowedX[1]), 
+                                         Random.Range(allowedY[0], allowedY[1]));
         pathTimer = 0;
         nextPoint = NewPoint();
     }

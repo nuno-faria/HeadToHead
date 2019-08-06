@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 2647116398643753938}
   - component: {fileID: 2647116398643753939}
   - component: {fileID: 335755787486229408}
-  m_Layer: 0
-  m_Name: Ball
+  - component: {fileID: 5050010378026727015}
+  m_Layer: 11
+  m_Name: Ball_Basket
   m_TagString: ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,8 +97,8 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2
-  m_Material: {fileID: 6200000, guid: c16c2c9e77bc6fd4fa308aea7668f14f, type: 2}
+  m_GravityScale: 1.7
+  m_Material: {fileID: 6200000, guid: 94a7efa642520be4e9e184d4c9f0da7c, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -118,3 +119,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.039999995
+--- !u!114 &5050010378026727015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2647116398643753937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa56e703220dfbe498bf97ec88e6f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  maxSpeed: 0
