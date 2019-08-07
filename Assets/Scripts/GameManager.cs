@@ -18,11 +18,15 @@ public class GameManager : MonoBehaviour {
     public Color colorP1;
     public Color colorP2;
     public string gameType;
+    public GameObject pauseMenu;
 
     private int scoreP1 = 0;
     private int scoreP2 = 0;
     private string colorP1S;
     private string colorP2S;
+
+    private bool paused = false;
+    private GameObject pauseMenuObject;
 
     //volley only (to control max time on each area)
     [Header("Volley Specific Vars")]
@@ -60,7 +64,11 @@ public class GameManager : MonoBehaviour {
                     areaTimer = 0;
                 lastArea = currentArea;
             }
-        } 
+        }
+
+        //pause
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PauseHandler();
     }
 
 
@@ -108,5 +116,19 @@ public class GameManager : MonoBehaviour {
 
         player2.transform.position = new Vector2(6.93f, -3.54f);
         player2Controller.ResetTransform();
+    }
+
+
+    private void PauseHandler() {
+        if (!paused) {
+            paused = true;
+            Time.timeScale = 0;
+            pauseMenuObject = Instantiate(pauseMenu);
+        }
+        else {
+            paused = false;
+            Destroy(pauseMenuObject);
+            Time.timeScale = 1;
+        }
     }
 }

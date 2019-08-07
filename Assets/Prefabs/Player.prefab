@@ -536,7 +536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 3140466039865338677}
   animator: {fileID: 1757877174}
-  nameP: P1
+  controllerName: K1
   moveSpeed: 250
   sprintSpeed: 500
   xVelocityMomentum: 0.85

@@ -8,4 +8,4 @@ PhysicsMaterial2D:
   m_PrefabAsset: {fileID: 0}
   m_Name: BasketBallBounce
   friction: 0.3
-  bounciness: 0.92
+  bounciness: 0.95

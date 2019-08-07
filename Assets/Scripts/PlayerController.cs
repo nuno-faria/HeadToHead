@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
 
     public Rigidbody2D rb;
     public Animator animator;
-    public string nameP;
+    public string controllerName;
 
     //MOVE VARS
     public float moveSpeed = 250f;
@@ -93,16 +93,16 @@ public class PlayerController : MonoBehaviour {
 
     void Update() {
         //horizontal
-        horizontalIntensity = Input.GetAxisRaw("Horizontal" + nameP);
+        horizontalIntensity = Input.GetAxisRaw("Horizontal" + controllerName);
 
         //vertical
-        verticalInput = Input.GetAxisRaw("Vertical" + nameP);
+        verticalInput = Input.GetAxisRaw("Vertical" + controllerName);
 
         //sprint
-        sprint = Input.GetAxisRaw("Sprint" + nameP) + Input.GetAxisRaw("SprintC" + nameP);
+        sprint = Input.GetAxisRaw("Sprint" + controllerName);
 
         //jump
-        if (Input.GetAxisRaw("Jump" + nameP) != 0) {
+        if (Input.GetAxisRaw("Jump" + controllerName) != 0) {
             if (jumpRelease) {
                 int prevJumpState = jumpState;
                 jumpState = Mathf.Min(2, jumpState + 1);
@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         //kick
-        if (Input.GetAxisRaw("Kick" + nameP) != 0) {
+        if (Input.GetAxisRaw("Kick" + controllerName) != 0) {
             kickRelease = false;
             kickHoldTime = Mathf.Min(maxKickHoldTime, 
                                      Mathf.Max(maxKickHoldTime / 5f, kickHoldTime + Time.fixedDeltaTime));
@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         //lift
-        if (Input.GetAxisRaw("Lift" + nameP) != 0) {
+        if (Input.GetAxisRaw("Lift" + controllerName) != 0) {
             if (liftRelease) {
                 lift = true;
                 liftRelease = false;
@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         //stop
-        stop = Input.GetAxisRaw("Stop" + nameP) != 0;
+        stop = Input.GetAxisRaw("Stop" + controllerName) != 0;
 
         animator.SetFloat("xVelAbs", Mathf.Abs(rb.velocity.x));
         animator.SetFloat("yVel", rb.velocity.y);
