@@ -43,3 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c510a3dfd2643d049b0f16f86770f3f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  p1ChoiceText: {fileID: 0}
+  p2ChoiceText: {fileID: 0}
+  p1Choice: 
+  p2Choice: 

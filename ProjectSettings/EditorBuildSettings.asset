@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Volley.unity
     guid: ea7a18605792a1b4ebce27ac1fe8a59c
+  - enabled: 1
+    path: Assets/Scenes/Controls.unity
+    guid: b2587792ab6c69345b09ce7f418106cb
   m_configObjects: {}

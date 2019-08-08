@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour {
 
     public Rigidbody2D rb;
     public Animator animator;
-    public string controllerName;
+    public string playerName;
+    private string controllerName;
 
     //MOVE VARS
     public float moveSpeed = 250f;
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviour {
 
 
     void Start() {
+        controllerName = MainManager.inputs[playerName];
         kickPowerSlider.fillAmount = 0f;
         direction = defaultDirection;
         SetUpMaterial();
@@ -94,6 +96,7 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         //horizontal
         horizontalIntensity = Input.GetAxisRaw("Horizontal" + controllerName);
+        Debug.Log(horizontalIntensity);
 
         //vertical
         verticalInput = Input.GetAxisRaw("Vertical" + controllerName);

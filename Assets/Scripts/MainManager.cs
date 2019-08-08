@@ -1,11 +1,19 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
+//Controls menus and saves the players inputs
 public class MainManager : MonoBehaviour {
 
     public static bool twoPlayers;
-    //TODO controls vars
+    public static Dictionary<string, string> inputs = 
+        new Dictionary<string, string> {
+            {  "P1", "K1" },
+            {  "P2", "K2" }
+        };
+
 
     public void LoadMainMenu() {
         Time.timeScale = 1;

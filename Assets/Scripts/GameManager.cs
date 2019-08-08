@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+//Controls a game (football, basket or volley)
 public class GameManager : MonoBehaviour {
 
     //singleton

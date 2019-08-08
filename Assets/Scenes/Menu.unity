@@ -497,12 +497,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9032184454534543730, guid: a52cd16a754e6fa4fa67bacab8d711e7,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 67bda773de7ddd442a3c20bff2266c35,
-        type: 3}
     - target: {fileID: 7935396406496987619, guid: a52cd16a754e6fa4fa67bacab8d711e7,
         type: 3}
       propertyPath: action.m_PersistentCalls.m_Calls.Array.size
@@ -546,6 +540,12 @@ PrefabInstance:
       propertyPath: action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 9032184454534543730, guid: a52cd16a754e6fa4fa67bacab8d711e7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 67bda773de7ddd442a3c20bff2266c35,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52cd16a754e6fa4fa67bacab8d711e7, type: 3}
 --- !u!1001 &1239882449
@@ -615,12 +615,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9032184454534543730, guid: a52cd16a754e6fa4fa67bacab8d711e7,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 4301b27d971b881469f3781b8bfabc12,
-        type: 3}
     - target: {fileID: 7935396406496987619, guid: a52cd16a754e6fa4fa67bacab8d711e7,
         type: 3}
       propertyPath: action.m_PersistentCalls.m_Calls.Array.size
@@ -664,6 +658,12 @@ PrefabInstance:
       propertyPath: action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 9032184454534543730, guid: a52cd16a754e6fa4fa67bacab8d711e7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4301b27d971b881469f3781b8bfabc12,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52cd16a754e6fa4fa67bacab8d711e7, type: 3}
 --- !u!1001 &1534373170

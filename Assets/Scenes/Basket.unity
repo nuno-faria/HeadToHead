@@ -1404,6 +1404,11 @@ PrefabInstance:
       propertyPath: controllerName
       value: K2
       objectReference: {fileID: 0}
+    - target: {fileID: 3140466039865338682, guid: 607f6d2eea3d69e4680811469fce9675,
+        type: 3}
+      propertyPath: playerName
+      value: P2
+      objectReference: {fileID: 0}
     - target: {fileID: 3140466039865338678, guid: 607f6d2eea3d69e4680811469fce9675,
         type: 3}
       propertyPath: m_Color.r
@@ -3044,7 +3049,6 @@ MonoBehaviour:
     type: 3}
   maxTimeInArea: 7
   volleyTimerText: {fileID: 0}
-  pauseMenuObject: {fileID: 0}
 --- !u!4 &1828736004
 Transform:
   m_ObjectHideFlags: 0

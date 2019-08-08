@@ -436,27 +436,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9032184454534543730, guid: a52cd16a754e6fa4fa67bacab8d711e7,
+    - target: {fileID: 4144763699017346604, guid: a52cd16a754e6fa4fa67bacab8d711e7,
         type: 3}
-      propertyPath: m_SortingLayerID
-      value: 1506983465
+      propertyPath: m_Offset.x
+      value: 0.0009692013
       objectReference: {fileID: 0}
-    - target: {fileID: 9032184454534543730, guid: a52cd16a754e6fa4fa67bacab8d711e7,
+    - target: {fileID: 4144763699017346604, guid: a52cd16a754e6fa4fa67bacab8d711e7,
         type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
+      propertyPath: m_Size.x
+      value: 0.4136026
       objectReference: {fileID: 0}
-    - target: {fileID: 9032184454534543730, guid: a52cd16a754e6fa4fa67bacab8d711e7,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9032184454534543730, guid: a52cd16a754e6fa4fa67bacab8d711e7,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: dd0fd43c2ad553540b53b2a88bfbef79,
-        type: 3}
     - target: {fileID: 7935396406496987619, guid: a52cd16a754e6fa4fa67bacab8d711e7,
         type: 3}
       propertyPath: action.m_PersistentCalls.m_Calls.Array.size
@@ -494,6 +483,27 @@ PrefabInstance:
       propertyPath: action.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 9032184454534543730, guid: a52cd16a754e6fa4fa67bacab8d711e7,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1506983465
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032184454534543730, guid: a52cd16a754e6fa4fa67bacab8d711e7,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032184454534543730, guid: a52cd16a754e6fa4fa67bacab8d711e7,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032184454534543730, guid: a52cd16a754e6fa4fa67bacab8d711e7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd0fd43c2ad553540b53b2a88bfbef79,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52cd16a754e6fa4fa67bacab8d711e7, type: 3}
 --- !u!4 &896249684358161789 stripped
