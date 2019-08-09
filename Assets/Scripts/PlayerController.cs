@@ -96,7 +96,6 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         //horizontal
         horizontalIntensity = Input.GetAxisRaw("Horizontal" + controllerName);
-        Debug.Log(horizontalIntensity);
 
         //vertical
         verticalInput = Input.GetAxisRaw("Vertical" + controllerName);
@@ -197,6 +196,7 @@ public class PlayerController : MonoBehaviour {
             float power = kickForce * holdTimeMultipler;
             Vector2 force = new Vector2(1f, verticalIntensity) * power * direction;
             ball.AddForce(force);
+            ball.gameObject.GetComponent<BallController>().PlayAudioSource();
         }
         kick = false;
         kickHoldTime = 0f;
@@ -209,6 +209,7 @@ public class PlayerController : MonoBehaviour {
         if (ball) {
             Vector2 force = new Vector2(0f, 1f) * liftForce;
             ball.AddForce(force);
+            ball.gameObject.GetComponent<BallController>().PlayAudioSource();
         }
         lift = false;
         animator.SetBool("kick", true);
