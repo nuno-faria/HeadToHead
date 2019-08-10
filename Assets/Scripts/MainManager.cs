@@ -7,16 +7,33 @@ using UnityEngine.SceneManagement;
 //Controls menus and saves the players inputs
 public class MainManager : MonoBehaviour {
 
+
+    public AudioSource audioSource;
     public static bool twoPlayers;
+    public static int goalLimit = 5;
     public static Dictionary<string, string> inputs = 
         new Dictionary<string, string> {
             {  "P1", "K1" },
             {  "P2", "K2" }
         };
+    public static string winner;
+    public static bool created = false;
+
+
+    void Start() {
+        if (!created) {
+            DontDestroyOnLoad(this);
+            created = true;
+        }
+        else {
+            Destroy(this.gameObject);
+        }
+    }
 
 
     public void LoadMainMenu() {
         Time.timeScale = 1;
+        AudioListener.pause = false;
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
     }
 
@@ -50,5 +67,19 @@ public class MainManager : MonoBehaviour {
 
     public void LoadControls() {
         SceneManager.LoadScene("Controls", LoadSceneMode.Single);
+    }
+
+
+    public void UpdateGoalLimit(string limit) {
+        Debug.Log(limit);
+        if (limit == "")
+            goalLimit = 0;
+        goalLimit = int.Parse(limit);
+    }
+
+
+    public void PlaySound(AudioClip clip) {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 }

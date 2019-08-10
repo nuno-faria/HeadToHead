@@ -8,15 +8,15 @@ public class BallController : MonoBehaviour {
     public AudioSource audioSource;
     //0 = no limit
     public float maxSpeed = 0;
-    public float maxVolume = 0.1f;
+    public float maxVolume = 0.25f;
 
     private void Start() {
-        audioSource.volume = 0.05f;
+        audioSource.volume = maxVolume;
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
         audioSource.volume = Mathf.Min(collision.relativeVelocity.magnitude / (30f / maxVolume), maxVolume);
-        if (audioSource.volume > 0.01) {
+        if (audioSource.volume > 0.02) {
             PlayAudioSource();
         }
         audioSource.volume = maxVolume;

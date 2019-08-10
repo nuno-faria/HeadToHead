@@ -8,6 +8,7 @@ public class ButtonController : MonoBehaviour {
     public SpriteRenderer sr;
     public Sprite hoverSprite;
     public UnityEvent action;
+    public AudioClip clip;
     private Sprite mainSprite;
 
 
@@ -25,7 +26,10 @@ public class ButtonController : MonoBehaviour {
         sr.sprite = mainSprite;
     }
 
+
     private void OnMouseDown() {
+        if (clip != null)
+            GameObject.Find("MainManager").GetComponent<MainManager>().PlaySound(clip);
         action.Invoke();
     }
 }

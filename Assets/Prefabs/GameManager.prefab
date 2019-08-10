@@ -52,6 +52,7 @@ MonoBehaviour:
   gameType: football
   pauseMenu: {fileID: 3348346230548288062, guid: 51057a8d8e6122b43873c08b1df62a79,
     type: 3}
+  firework: {fileID: 4270192043487025298, guid: a7900dee242d4434bacea97f353ab67b,
+    type: 3}
   maxTimeInArea: 7
   volleyTimerText: {fileID: 0}
-  pauseMenuObject: {fileID: 0}

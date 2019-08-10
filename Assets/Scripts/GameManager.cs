@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //Controls a game (football, basket or volley)
 public class GameManager : MonoBehaviour {
@@ -79,6 +80,8 @@ public class GameManager : MonoBehaviour {
         else
             scoreP1++;
 
+        CheckGameOver();
+
         if (gameType == "volley" && maxTimeInArea > 0) {
             areaTimer = 0;
             lastArea = '0';
@@ -94,6 +97,21 @@ public class GameManager : MonoBehaviour {
         scoreText.text = "<color=" + colorP1S + ">" + scoreP1 +
                          "<color=#cccccc>" + " : " + 
                          "<color=" + colorP2S + ">" + scoreP2;
+    }
+
+
+    private void CheckGameOver() {
+        if (MainManager.goalLimit > 0) {
+            if (scoreP1 == MainManager.goalLimit) {
+                MainManager.winner = "PLAYER 1";
+                SceneManager.LoadScene("GameOver");
+            }
+
+            if (scoreP2 == MainManager.goalLimit) {
+                MainManager.winner = "PLAYER 2";
+                SceneManager.LoadScene("GameOver");
+            }
+        }
     }
 
 
@@ -124,12 +142,14 @@ public class GameManager : MonoBehaviour {
         if (!paused) {
             paused = true;
             Time.timeScale = 0;
+            AudioListener.pause = true;
             pauseMenuObject = Instantiate(pauseMenu);
         }
         else {
             paused = false;
             Destroy(pauseMenuObject);
             Time.timeScale = 1;
+            AudioListener.pause = false;
         }
     }
 }

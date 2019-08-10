@@ -126,3 +126,5 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  switchSceneButton: 1
+  clip: {fileID: 8300000, guid: 06d0ca1bfc0386a41b5014243bfdb54d, type: 3}
