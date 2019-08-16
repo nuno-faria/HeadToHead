@@ -1,0 +1,56 @@
+expressions:  
+  other_player_area_max_x: -6
+  self_goal_line_x: 6.7
+  jump_over_ball_max_x: 1
+  ball_grounded_max_y_vel: 4
+  ball_range_to_jump_max_x: 1
+  ball_range_to_jump_max_y: 1
+  ball_range_to_jump_min_y: 0.5
+  min_distance_from_ball_x: 0.25 # so it shoots the ball left/right instead of up
+  horizontal_speed: 1
+
+nodes:
+
+  ROOT:
+    decision: state["ballPosX"] < other_player_area_max_x
+    yes: CAUTIOUS
+    no: REACT; SPRINT
+
+  CAUTIOUS:
+    action: data["_x"] = self_goal_line_x
+    yes: MOVE_TO_CUSTOM_POS
+  
+  REACT:
+    decision: state["ballVelX"] > 0 && state["selfPosX"] < state["ballPosX"] + 0.2 # ball going to self area and player behind ball
+    yes: GET_OVER_BALL
+    no: ATTACK
+
+  GET_OVER_BALL:
+    action: data["_x"] = self_goal_line_x
+    decision: >-
+      abs(state["ballPosX"] - state["selfPosX"]) < jump_over_ball_max_x &&
+      abs(state["ballVelY"]) < ball_grounded_max_y_vel
+    yes: JUMP; MOVE_TO_CUSTOM_POS
+    no: MOVE_TO_CUSTOM_POS
+
+  ATTACK:
+    action: data["_x"] = state["ballPosX"] + min_distance_from_ball_x
+    decision: >-
+      abs(state["selfPosX"] - state["ballPosX"]) < ball_range_to_jump_max_x &&
+      abs(state["selfPosY"] - state["ballPosY"]) < ball_range_to_jump_max_y &&
+      abs(state["selfPosY"] - state["ballPosY"]) > ball_range_to_jump_min_y
+    yes: JUMP; MOVE_TO_CUSTOM_POS
+    no: MOVE_TO_CUSTOM_POS
+
+  MOVE_TO_CUSTOM_POS:
+    decision: state["selfPosX"] < data["_x"]
+    yes: MOVE_RIGHT
+    no: MOVE_LEFT
+
+  MOVE_RIGHT: data["horizontal"] = horizontal_speed
+
+  MOVE_LEFT: data["horizontal"] = -1 * horizontal_speed
+
+  SPRINT: data["sprint"] = 1
+
+  JUMP: data["jump"] = 1

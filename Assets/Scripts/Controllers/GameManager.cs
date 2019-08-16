@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour {
     private char lastArea = '0';
     private float areaTimer = 0;
 
-
     void Start() {
         gm = this;
         ballRb = ball.GetComponent<Rigidbody2D>();
@@ -45,8 +44,20 @@ public class GameManager : MonoBehaviour {
         colorP2S = "#" + ColorUtility.ToHtmlStringRGB(colorP2);
         player1Controller = player1.GetComponent<PlayerController>();
         player2Controller = player2.GetComponent<PlayerController>();
+
+        if (!MainManager.twoPlayers)
+            SetupAI();
+
         ResetBall();
         UpdateText();
+    }
+
+
+    void SetupAI() {
+        player2Controller.cpu = true;
+        player2Controller.otherPlayer = player1Controller.gameObject;
+        player2Controller.gameBall = ballRb;
+        player2Controller.gameMode = gameType;
     }
 
 
@@ -69,7 +80,7 @@ public class GameManager : MonoBehaviour {
         }
 
         //pause
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 7"))
             PauseHandler();
     }
 

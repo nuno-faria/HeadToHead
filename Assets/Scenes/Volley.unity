@@ -1479,6 +1479,11 @@ PrefabInstance:
       propertyPath: playerName
       value: P2
       objectReference: {fileID: 0}
+    - target: {fileID: 3140466039865338682, guid: 607f6d2eea3d69e4680811469fce9675,
+        type: 3}
+      propertyPath: otherPlayer
+      value: 
+      objectReference: {fileID: 1757877167}
     - target: {fileID: 3140466039865338678, guid: 607f6d2eea3d69e4680811469fce9675,
         type: 3}
       propertyPath: m_Color.r
@@ -1671,7 +1676,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8c7ded979a0a7ab4aa8b24d4eeebda22, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.05
+  m_Volume: 0.04
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1846,7 +1851,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8c7ded979a0a7ab4aa8b24d4eeebda22, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.05
+  m_Volume: 0.04
   m_Pitch: 1
   Loop: 0
   Mute: 0

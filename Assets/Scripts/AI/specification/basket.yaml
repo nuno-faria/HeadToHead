@@ -1,0 +1,40 @@
+expressions:
+  horizontal_speed: 1
+  min_distance_from_ball_x: 0.25 # so it shoots the ball left/right instead of up
+  ball_range_to_jump_max_x: 1
+  ball_range_to_jump_max_y: 3
+  ball_range_to_jump_min_y: 0.2
+  wall_x: 8.9
+  floor_y: -3.6
+
+nodes:
+
+  ROOT:
+    yes: GO_PREDICT_FALL; JUMP_TO_BALL; SPRINT
+
+  JUMP_TO_BALL:
+    decision: >-
+      abs(state["selfPosX"] - state["ballPosX"]) < ball_range_to_jump_max_x && 
+      abs(state["selfPosY"] - state["ballPosY"]) < ball_range_to_jump_max_y &&
+      abs(state["selfPosY"] - state["ballPosY"]) > ball_range_to_jump_min_y
+    yes: JUMP
+
+  GO_PREDICT_FALL:
+    action: >-
+        data["_ballFallX"] = (floor_y - state["ballPosY"]) / (state["ballVelY"] / state["ballVelX"]) + state["ballPosX"];
+        data["_ballFallX"] = data["_ballFallX"] > wall_x ? wall_x - (data["_ballFallX"] - wall_x) : data["_ballFallX"];
+        data["_x"] = data["_ballFallX"] + min_distance_from_ball_x;
+    yes: MOVE_TO_CUSTOM_POS
+
+  MOVE_TO_CUSTOM_POS:
+    decision: state["selfPosX"] < data["_x"]
+    yes: MOVE_RIGHT
+    no: MOVE_LEFT
+
+  MOVE_RIGHT: data["horizontal"] = horizontal_speed
+
+  MOVE_LEFT: data["horizontal"] = -1 * horizontal_speed
+
+  SPRINT: data["sprint"] = 1
+
+  JUMP: data["jump"] = 1

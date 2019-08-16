@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 //Controls menus and saves the players inputs
 public class MainManager : MonoBehaviour {
 
-
+    public static MainManager mm;
     public AudioSource audioSource;
     public static bool twoPlayers;
     public static int goalLimit = 5;
@@ -20,10 +20,12 @@ public class MainManager : MonoBehaviour {
     public static bool created = false;
 
 
+
     void Start() {
         if (!created) {
             DontDestroyOnLoad(this);
             created = true;
+            mm = this;
         }
         else {
             Destroy(this.gameObject);
@@ -67,14 +69,6 @@ public class MainManager : MonoBehaviour {
 
     public void LoadControls() {
         SceneManager.LoadScene("Controls", LoadSceneMode.Single);
-    }
-
-
-    public void UpdateGoalLimit(string limit) {
-        Debug.Log(limit);
-        if (limit == "")
-            goalLimit = 0;
-        goalLimit = int.Parse(limit);
     }
 
 

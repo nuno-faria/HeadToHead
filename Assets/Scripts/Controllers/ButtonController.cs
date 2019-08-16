@@ -29,7 +29,7 @@ public class ButtonController : MonoBehaviour {
 
     private void OnMouseDown() {
         if (clip != null)
-            GameObject.Find("MainManager").GetComponent<MainManager>().PlaySound(clip);
+            MainManager.mm.PlaySound(clip);
         action.Invoke();
     }
 }

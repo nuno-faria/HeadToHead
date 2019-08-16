@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.AI;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +18,7 @@ public class PlayerController : MonoBehaviour {
     //ratio of the x velocity energy kept in the next update
     public float xVelocityMomentum = 0.8f;
     private float horizontalIntensity = 0f;
-    private float sprint = 0f;
+    private bool sprint = false;
     private bool onTheAir = false;
 
     //JUMP VARS
@@ -48,18 +50,25 @@ public class PlayerController : MonoBehaviour {
     private bool stop = false;
 
     //BALL
-    private Rigidbody2D ball;
+    private Rigidbody2D ballInRange;
 
     //DIRECTION
     //1 -> facing right, -1 -> facing 
     public int defaultDirection = 1;
     private int direction;
 
-
     //COLOR
     public Color color;
     public Texture2D swapTex;
     public Shader shader;
+
+    //AI
+    [Header("AI")]
+    public bool cpu = false;
+    public string gameMode;
+    public GameObject otherPlayer;
+    public Rigidbody2D gameBall;
+    public Agent agent;
 
 
     void Start() {
@@ -67,6 +76,9 @@ public class PlayerController : MonoBehaviour {
         kickPowerSlider.fillAmount = 0f;
         direction = defaultDirection;
         SetUpMaterial();
+
+        if (cpu)
+            agent = new Agent(gameMode);
     }
 
 
@@ -93,18 +105,53 @@ public class PlayerController : MonoBehaviour {
     }
 
 
+    void GetInput(ref float h, ref float v, ref float s, ref float j, ref float k, ref float l, ref float st) {
+        if (!cpu) {
+            h = Input.GetAxisRaw("Horizontal" + controllerName);
+            v = Input.GetAxisRaw("Vertical" + controllerName);
+            s = Input.GetAxisRaw("Sprint" + controllerName);
+            j = Input.GetAxisRaw("Jump" + controllerName);
+            k = Input.GetAxisRaw("Kick" + controllerName);
+            l = Input.GetAxisRaw("Lift" + controllerName);
+            st = Input.GetAxisRaw("Stop" + controllerName);
+        }
+
+        else {
+            Dictionary<string, dynamic> state = new Dictionary<string, dynamic> {
+                {"selfPosX", transform.position.x },
+                {"selfPosY", transform.position.y },
+                {"otherPosX", otherPlayer.transform.position.x },
+                {"otherPosY", otherPlayer.transform.position.y },
+                {"ballPosX", gameBall.transform.position.x },
+                {"ballPosY", gameBall.transform.position.y },
+                {"ballVelX", gameBall.velocity.x },
+                {"ballVelY", gameBall.velocity.y }
+            };
+            Dictionary<string, dynamic> data = new Dictionary<string, dynamic> { };
+
+            agent.Act(state, data);
+            h = data.ContainsKey("horizontal") ? (float) data["horizontal"] : 0;
+            j = data.ContainsKey("jump") ? (float) data["jump"] : 0;
+            s = data.ContainsKey("sprint") ? (float) data["sprint"] : 0;
+        }
+    }
+
+
     void Update() {
+        float h = 0, v = 0, s = 0, j = 0, k = 0, l = 0, st = 0;
+        GetInput(ref h, ref v, ref s, ref j, ref k, ref l, ref st);
+
         //horizontal
-        horizontalIntensity = Input.GetAxisRaw("Horizontal" + controllerName);
+        horizontalIntensity = h;
 
         //vertical
-        verticalInput = Input.GetAxisRaw("Vertical" + controllerName);
+        verticalInput = v;
 
         //sprint
-        sprint = Input.GetAxisRaw("Sprint" + controllerName);
+        sprint = s != 0;
 
         //jump
-        if (Input.GetAxisRaw("Jump" + controllerName) != 0) {
+        if (j != 0) {
             if (jumpRelease) {
                 int prevJumpState = jumpState;
                 jumpState = Mathf.Min(2, jumpState + 1);
@@ -119,9 +166,9 @@ public class PlayerController : MonoBehaviour {
         }
 
         //kick
-        if (Input.GetAxisRaw("Kick" + controllerName) != 0) {
+        if (k != 0) {
             kickRelease = false;
-            kickHoldTime = Mathf.Min(maxKickHoldTime, 
+            kickHoldTime = Mathf.Min(maxKickHoldTime,
                                      Mathf.Max(maxKickHoldTime / 5f, kickHoldTime + Time.fixedDeltaTime));
             kickPowerSlider.fillAmount = Mathf.Floor(kickHoldTime / maxKickHoldTime * 5f) / 5f;
         }
@@ -133,7 +180,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         //lift
-        if (Input.GetAxisRaw("Lift" + controllerName) != 0) {
+        if (l != 0) {
             if (liftRelease) {
                 lift = true;
                 liftRelease = false;
@@ -144,8 +191,9 @@ public class PlayerController : MonoBehaviour {
         }
 
         //stop
-        stop = Input.GetAxisRaw("Stop" + controllerName) != 0;
+        stop = st != 0;
 
+        //animation
         animator.SetFloat("xVelAbs", Mathf.Abs(rb.velocity.x));
         animator.SetFloat("yVel", rb.velocity.y);
     }
@@ -173,7 +221,7 @@ public class PlayerController : MonoBehaviour {
 
     void UpdateMovement() {
         float xVel = 0f;
-        if (sprint == 0)
+        if (!sprint)
             xVel = horizontalIntensity * moveSpeed * Time.fixedDeltaTime;
         else
             xVel = horizontalIntensity * sprintSpeed * Time.fixedDeltaTime;
@@ -191,12 +239,12 @@ public class PlayerController : MonoBehaviour {
 
 
     void Kick() {
-        if (ball) {
+        if (ballInRange) {
             float holdTimeMultipler = kickHoldTime / maxKickHoldTime;
             float power = kickForce * holdTimeMultipler;
             Vector2 force = new Vector2(1f, verticalIntensity) * power * direction;
-            ball.AddForce(force);
-            ball.gameObject.GetComponent<BallController>().PlayAudioSource();
+            ballInRange.AddForce(force);
+            ballInRange.gameObject.GetComponent<BallController>().PlayAudioSource();
         }
         kick = false;
         kickHoldTime = 0f;
@@ -206,10 +254,10 @@ public class PlayerController : MonoBehaviour {
 
 
     void Lift() {
-        if (ball) {
+        if (ballInRange) {
             Vector2 force = new Vector2(0f, 1f) * liftForce;
-            ball.AddForce(force);
-            ball.gameObject.GetComponent<BallController>().PlayAudioSource();
+            ballInRange.AddForce(force);
+            ballInRange.gameObject.GetComponent<BallController>().PlayAudioSource();
         }
         lift = false;
         animator.SetBool("kick", true);
@@ -217,10 +265,10 @@ public class PlayerController : MonoBehaviour {
 
 
     void Stop() {
-        if (ball) {
+        if (ballInRange) {
             float momentum = 1 - stopPower;
-            Vector2 newVel = new Vector2(ball.velocity.x * momentum, ball.velocity.y * momentum);
-            ball.velocity = newVel;
+            Vector2 newVel = new Vector2(ballInRange.velocity.x * momentum, ballInRange.velocity.y * momentum);
+            ballInRange.velocity = newVel;
         }
         stop = false;
     }
@@ -245,12 +293,12 @@ public class PlayerController : MonoBehaviour {
 
 
     public void BallInRange(Rigidbody2D ball) {
-        this.ball = ball;
+        this.ballInRange = ball;
     }
 
 
     public void BallOutOfRange() {
-        ball = null;
+        ballInRange = null;
     }
 
 
