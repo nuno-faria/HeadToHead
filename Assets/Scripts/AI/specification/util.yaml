@@ -1,0 +1,26 @@
+# Some expressions and nodes to be shared by multiple trees
+
+expressions:
+  wall_x: 8.5
+  floor_y: -3.65
+
+
+nodes:
+
+  # moves the player to some position (data["_x"]) previously set
+  MOVE_TO_CUSTOM_POS:
+    info: Go to a position previously defined
+    decision: state["selfPosX"] < data["_x"]
+    yes: MOVE_RIGHT
+    no: MOVE_LEFT
+
+  MOVE_RIGHT: data["horizontal"] = horizontal_speed
+  #same as:
+  #  MOVE_RIGHT:
+  #    action: data["horizontal"] = horizontal_speed
+
+  MOVE_LEFT: data["horizontal"] = -1 * horizontal_speed
+
+  SPRINT: data["sprint"] = 1
+
+  JUMP: data["jump"] = 1

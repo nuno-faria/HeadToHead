@@ -5,12 +5,14 @@ import os
 
 funcs = {
     'abs\(': 'Math.Abs(',
+    'min\(': 'Math.Min(',
+    'max\(': 'Math.Max(',
 }
 
-# replaces constants name by their value and subs functions by their respective name
+# replaces expressions' and functions
 def parse_code(line):
-    #constants
-    for key, value in constants.items():
+    #expressions
+    for key, value in EXPRESSIONS.items():
         line = re.sub(key, str(value), line)
 
     #functions
@@ -24,10 +26,10 @@ def parse_code(line):
 
 
 def create_tree(name):
-    global created_nodes
-    if name not in created_nodes:
+    global CREATED_NODES
+    if name not in CREATED_NODES:
         code_lines = []
-        node = nodes[name]
+        node = NODES[name]
 
         # node with just the action
         if type(node) is str:
@@ -64,29 +66,61 @@ def create_tree(name):
         else:
             decision = 'null'
 
-        # add to created nodes
-        created_nodes.add(name)
+        #comment
+        if 'info' in node:
+            info = f'// {node["info"]}\n\t\t'
+        else:
+            info = ''
 
-        code_lines.append(f'DecisionTree {name} = new DecisionTree("{name}", {action}, {decision}, {left}, {right});')
+
+        # add to created nodes
+        CREATED_NODES.add(name)
+
+        code_lines.append(f'{info}DecisionTree {name} = new DecisionTree("{name}", {action}, {decision}, {left}, {right});\n')
         return code_lines
     
     else:
         return []
 
 
+def process_include(filenames):
+    for filename in filenames:
+        with open(filename) as file:
+            spec = yaml.safe_load(file)
+            exps = spec['expressions'] if 'expressions' in spec else {}
+            nds = spec['nodes'] if 'nodes' in spec else {}
+            incs = spec['include'] if 'include' in spec else []
+            # expressions
+            for name, exp in exps.items():
+                if name not in EXPRESSIONS:
+                    EXPRESSIONS[name] = exp
+            # nodes
+            for name, node in nds.items():
+                if name not in NODES:
+                    NODES[name] = node
+            
+            #other includes
+            process_include([FOLDER_PATH + inc for inc in incs])
+
+
 def main():
     with open(sys.argv[1]) as file:
         spec = yaml.safe_load(file)
+        global FOLDER_PATH
+        FOLDER_PATH = os.path.dirname(file.name) + '/'
         name = os.path.splitext(os.path.basename(file.name))[0].capitalize() + 'Tree'
 
-    global constants
-    constants = spec['expressions']
+    global EXPRESSIONS
+    EXPRESSIONS = spec['expressions'] if 'expressions' in spec else {}
 
-    global nodes
-    nodes = spec['nodes']
+    global NODES
+    NODES = spec['nodes']
 
-    global created_nodes
-    created_nodes = set()
+    include = spec['include'] if 'include' in spec else {}
+    process_include([FOLDER_PATH + i for i in include])
+
+    global CREATED_NODES
+    CREATED_NODES = set()
 
     tree_code = '\n\t\t'.join(create_tree('ROOT'))
 

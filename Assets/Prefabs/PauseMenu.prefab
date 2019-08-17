@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3348346230548288057}
+  - component: {fileID: 518314941511120294}
   m_Layer: 0
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -33,6 +34,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &518314941511120294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3348346230548288062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 248b38ce18d549f448627208f375d7c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonCols: []
+  selectedButton: {fileID: 4481462957552603531}
 --- !u!1 &3348346230773375257
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,16 +451,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4144763699017346604, guid: a52cd16a754e6fa4fa67bacab8d711e7,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0.0009692013
-      objectReference: {fileID: 0}
-    - target: {fileID: 4144763699017346604, guid: a52cd16a754e6fa4fa67bacab8d711e7,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.4136026
-      objectReference: {fileID: 0}
     - target: {fileID: 7935396406496987619, guid: a52cd16a754e6fa4fa67bacab8d711e7,
         type: 3}
       propertyPath: action.m_PersistentCalls.m_Calls.Array.size
@@ -504,8 +509,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: dd0fd43c2ad553540b53b2a88bfbef79,
         type: 3}
+    - target: {fileID: 4144763699017346604, guid: a52cd16a754e6fa4fa67bacab8d711e7,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0009692013
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144763699017346604, guid: a52cd16a754e6fa4fa67bacab8d711e7,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.4136026
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52cd16a754e6fa4fa67bacab8d711e7, type: 3}
+--- !u!1 &4481462957552603531 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1172886405908605073, guid: a52cd16a754e6fa4fa67bacab8d711e7,
+    type: 3}
+  m_PrefabInstance: {fileID: 3348346231355062554}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &896249684358161789 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2452114884429012071, guid: a52cd16a754e6fa4fa67bacab8d711e7,

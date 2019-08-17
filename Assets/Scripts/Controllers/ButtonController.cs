@@ -11,6 +11,8 @@ public class ButtonController : MonoBehaviour {
     public AudioClip clip;
     private Sprite mainSprite;
 
+    private float alpha;
+
 
     void Start() {
         mainSprite = sr.sprite;
@@ -19,11 +21,14 @@ public class ButtonController : MonoBehaviour {
 
     void OnMouseEnter() {
         sr.sprite = hoverSprite;
+        alpha = sr.color.a;
+        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.99f);
     }
 
 
     void OnMouseExit() {
         sr.sprite = mainSprite;
+        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, alpha);
     }
 
 
@@ -31,5 +36,9 @@ public class ButtonController : MonoBehaviour {
         if (clip != null)
             MainManager.mm.PlaySound(clip);
         action.Invoke();
+    }
+
+    public void Action() {
+        OnMouseDown();
     }
 }
