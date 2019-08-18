@@ -14,9 +14,9 @@ expressions:
   ball_range_to_jump_max_y: 2
   min_distance_from_ball_x: 0.4 # so it shoots the ball left/right instead of up
   horizontal_speed: 2
-  max_ball_y_to_follow: 0   #follow ball if ball_y < k
+  max_ball_y_to_follow: -0.75   #follow ball if ball_y < k
   max_ball_xvel_to_follow: 6   #follow ball if ball_xvel < k
-  max_ball_yvel_to_follow: -4  #follow ball if ball_xvel < k
+  max_ball_yvel_to_follow: -4  #follow ball if ball_yvel < k
   ball_in_self_area: state["ballPosX"] > 0 # can be code too
 
   # can also refer to state/data variables
@@ -37,13 +37,13 @@ nodes:
 
   # find where to go (follow the ball or go to the fall prediction)
   GO_BALL:
-    info: Ball state is appropriate to follow?
+    info: Ball is in an appropriate state to follow?
     decision: >-
       state["ballPosY"] < max_ball_y_to_follow ||
       state["ballVelX"] < max_ball_xvel_to_follow ||
       state["ballVelY"] < max_ball_yvel_to_follow
     yes: FOLLOW_BALL; SPRINT; JUMP_TO_BALL
-    no: GO_PREDICT_FALL; SPRINT; JUMP_TO_BALL
+    no: GO_PREDICT_FALL
 
   # move to the ball
   FOLLOW_BALL:

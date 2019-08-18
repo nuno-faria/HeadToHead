@@ -2,8 +2,9 @@
 using TMPro;
 using UnityEngine;
 
-
-//Controls the controls menu
+/**
+ * Controls the Controls Menu (changing controls)
+ */
 public class ControlsManager : MonoBehaviour {
 
     public TextMeshProUGUI p1ChoiceText;

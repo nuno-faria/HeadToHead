@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-//Controls menus and saves the players inputs
+/**
+ * Controls the menus navigation and stores the inputs for each player
+ */
 public class MainManager : MonoBehaviour {
 
     public static MainManager mm;
@@ -22,6 +23,7 @@ public class MainManager : MonoBehaviour {
 
 
     void Start() {
+        //used so only one instance of the object exists
         if (!created) {
             DontDestroyOnLoad(this);
             created = true;

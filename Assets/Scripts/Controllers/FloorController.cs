@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-//Used to add particles
+/**
+ * Adds particles to the floor when colliding with a ball or a player
+ */
 public class FloorController : MonoBehaviour {
 
     public ParticleSystem ps;

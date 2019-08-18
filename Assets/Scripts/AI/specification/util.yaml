@@ -9,7 +9,7 @@ nodes:
 
   # moves the player to some position (data["_x"]) previously set
   MOVE_TO_CUSTOM_POS:
-    info: Go to a position previously defined
+    info: Player left of custom position?
     decision: state["selfPosX"] < data["_x"]
     yes: MOVE_RIGHT
     no: MOVE_LEFT

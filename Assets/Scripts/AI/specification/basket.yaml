@@ -4,9 +4,10 @@ include:
 expressions:
   horizontal_speed: 1
   min_distance_from_ball_x: 0.25 # so it shoots the ball left/right instead of up
+  x_delta_between_ball: 0.3 # so player is to the right of the ball of push the ball to the enemy hoop
   ball_range_to_jump_max_x: 1
   ball_range_to_jump_max_y: 3
-  ball_range_to_jump_min_y: 0.2
+  ball_range_to_jump_min_y: 0.4
 
 nodes:
 
@@ -26,9 +27,9 @@ nodes:
     # using the line equation
     action: >-
         data["_y"] = floor_y;
-        data["_m"] = state["ballVelY"] / state["ballVelX"];
+        data["_m"] = state["ballVelY"] / (state["ballVelX"] != 0 ? state["ballVelX"] : 0.1);
         data["_b"] = state["ballPosY"] - data["_m"] * state["ballPosX"];
         data["_x"] = (data["_y"] - data["_b"]) / data["_m"];
         data["_x"] = data["_x"] > wall_x ? wall_x - (data["_x"] - wall_x) : data["_x"];
-        data["_x"] = data["_x"] + min_distance_from_ball_x;
+        data["_x"] = data["_x"] + x_delta_between_ball;
     yes: MOVE_TO_CUSTOM_POS

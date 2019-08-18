@@ -1,4 +1,5 @@
-﻿Shader "Hidden/ColorSwap"
+﻿//Used to replace the color of the players shirts
+Shader "Hidden/ColorSwap"
 {
 	Properties
 	{

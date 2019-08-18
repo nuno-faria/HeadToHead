@@ -1,9 +1,11 @@
 ﻿using Assets.Scripts.AI;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+
+/**
+ * Controls the player (movement, kick, ...)
+ */
 
 public class PlayerController : MonoBehaviour {
 
@@ -19,7 +21,6 @@ public class PlayerController : MonoBehaviour {
     public float xVelocityMomentum = 0.8f;
     private float horizontalIntensity = 0f;
     private bool sprint = false;
-    private bool onTheAir = false;
 
     //JUMP VARS
     private bool jump = false;
@@ -81,7 +82,7 @@ public class PlayerController : MonoBehaviour {
             agent = new Agent(gameMode);
     }
 
-
+    //change the color of the shirt
     void SetUpMaterial() {
         //secondary color (darker version of 'color')
         float H, S, V;
@@ -106,6 +107,7 @@ public class PlayerController : MonoBehaviour {
 
 
     void GetInput(ref float h, ref float v, ref float s, ref float j, ref float k, ref float l, ref float st) {
+        //human player
         if (!cpu) {
             h = Input.GetAxisRaw("Horizontal" + controllerName);
             v = Input.GetAxisRaw("Vertical" + controllerName);
@@ -116,7 +118,9 @@ public class PlayerController : MonoBehaviour {
             st = Input.GetAxisRaw("Stop" + controllerName);
         }
 
+        //ai
         else {
+            //state of the game
             Dictionary<string, dynamic> state = new Dictionary<string, dynamic> {
                 {"selfPosX", transform.position.x },
                 {"selfPosY", transform.position.y },
@@ -127,6 +131,7 @@ public class PlayerController : MonoBehaviour {
                 {"ballVelX", gameBall.velocity.x },
                 {"ballVelY", gameBall.velocity.y }
             };
+            //data to be set
             Dictionary<string, dynamic> data = new Dictionary<string, dynamic> { };
 
             agent.Act(state, data);
@@ -283,12 +288,6 @@ public class PlayerController : MonoBehaviour {
 
     public void OnTheGround() {
         jumpState = 0;
-        onTheAir = false;
-    }
-
-
-    public void OffTheGround() {
-        onTheAir = true;
     }
 
 

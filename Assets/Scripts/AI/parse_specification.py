@@ -1,3 +1,5 @@
+# Generates the code from a decision tree specification
+
 import sys
 import yaml
 import re
@@ -9,7 +11,7 @@ funcs = {
     'max\(': 'Math.Max(',
 }
 
-# replaces expressions' and functions
+# replaces expressions and functions
 def parse_code(line):
     #expressions
     for key, value in EXPRESSIONS.items():
@@ -24,7 +26,7 @@ def parse_code(line):
     else:
         return line
 
-
+# forms the decision tree code
 def create_tree(name):
     global CREATED_NODES
     if name not in CREATED_NODES:
@@ -83,6 +85,7 @@ def create_tree(name):
         return []
 
 
+# process included files
 def process_include(filenames):
     for filename in filenames:
         with open(filename) as file:
@@ -103,6 +106,7 @@ def process_include(filenames):
             process_include([FOLDER_PATH + inc for inc in incs])
 
 
+# main (receives the filename as argument)
 def main():
     with open(sys.argv[1]) as file:
         spec = yaml.safe_load(file)
@@ -128,9 +132,11 @@ def main():
 using System;
 using System.Collections.Generic;
 
+//Generated code
 class {name} {{
 
     public static DecisionTree CreateTree() {{
+
         {tree_code}
         return ROOT;
     }}

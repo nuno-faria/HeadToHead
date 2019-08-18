@@ -1,3 +1,5 @@
+# Creates an image representation of a decision tree
+
 from networkx import DiGraph, draw, draw_networkx_labels, draw_networkx_edge_labels
 from networkx.drawing.nx_agraph import graphviz_layout
 import matplotlib
@@ -11,6 +13,7 @@ YES_COLOR = '#5cf873'
 NO_COLOR = '#f85c79'
 YES_NO_COLOR = '#f5ec42'
 
+# forms the tree in a graph
 def build_tree(root_name):
     if not G.has_node(root_name):
         node = NODES[root_name]
@@ -44,6 +47,7 @@ def build_tree(root_name):
             node_labels[root_name] = ''
 
 
+# process include files
 def process_include(filenames):
     for filename in filenames:
         with open(filename) as file:
@@ -60,6 +64,7 @@ def process_include(filenames):
             process_include([FOLDER_PATH + inc for inc in incs])
 
 
+# main (receives the filename, width and height as argument)
 def main():
     with open(sys.argv[1]) as file:
         spec = yaml.safe_load(file)
@@ -90,16 +95,14 @@ def main():
 
     plt.figure(figsize=(fig_width, fig_height))
     draw(G, pos, with_labels=True, arrows=True, node_size=0,
-         width=1, node_color='#333333', edge_color=colors, font_size=12)
+         width=1, node_color='#333333', edge_color=colors, font_size=11)
     draw_networkx_labels(G, pos, labels=node_labels, font_size=7, font_color='#666666')
     draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=6)
-    #x_values, y_values = zip(*pos.values())
-    #x_max = max(x_values)
-    #x_min = min(x_values)
-    #x_margin = (x_max - x_min) * 0.15
-    #plt.xlim(x_min - x_margin, x_max + x_margin)
-    plt.savefig(name + '.png', dpi=300)
 
+    if not os.path.exists('plots'):
+        os.mkdir('plots')
+
+    plt.savefig('plots/' + name + '.png', dpi=300)
 
 
 if __name__ == "__main__":

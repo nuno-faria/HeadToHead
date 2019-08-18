@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Manages a button grid (to be navigated by the keyboard/controller)
+ */
 public class ButtonsSelectionController : MonoBehaviour {
 
     [Serializable]

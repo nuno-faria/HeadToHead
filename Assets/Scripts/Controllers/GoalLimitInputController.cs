@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/**
+ * Controls the goal limit input field
+ */
 public class GoalLimitInputController : MonoBehaviour {
 
     public TextMeshProUGUI text;

@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/**
+ * Controls the movement of a bird
+ */
 public class BirdController : MonoBehaviour {
 
     public float[] allowedX = { -11, 11 };

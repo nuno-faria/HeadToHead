@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/**
+ * Controls the fireworks in the game over menu
+ */
 public class GameOverController : MonoBehaviour {
 
     public TextMeshProUGUI text;
@@ -29,6 +30,7 @@ public class GameOverController : MonoBehaviour {
             SceneManager.LoadScene("Menu");
 
         timer += Time.deltaTime;
+        //spawn new firework
         if (timer >= fireworkInterval) {
             Transform o = Instantiate(firework);
             o.position = new Vector2(Random.Range(-8f, 8f), Random.Range(-4f, 4f));

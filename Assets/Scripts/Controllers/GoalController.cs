@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/**
+ * Updates the score when there is a goal (ball collides with it)
+ */
 public class GoalController : MonoBehaviour {
 
     public char player;

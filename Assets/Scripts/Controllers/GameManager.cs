@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//Controls a game (football, basket or volley)
+/**
+ * Controls a game (positon of the ball and players, score, ...) of football, basket or volley
+ */
 public class GameManager : MonoBehaviour {
 
     //singleton
@@ -62,26 +62,31 @@ public class GameManager : MonoBehaviour {
 
 
     void Update() {
-        if (gameType == "volley" && maxTimeInArea > 0) {
-            areaTimer += Time.deltaTime;
-            volleyTimerText.SetText(Mathf.CeilToInt(maxTimeInArea - areaTimer).ToString());
-
-            //round over
-            if (areaTimer >= maxTimeInArea) {
-                NewRound(lastArea);
-            }
-            else {
-                char currentArea = ball.transform.position.x < 0 ? '1' : '2';
-                //area change, reset timer
-                if (currentArea != lastArea)
-                    areaTimer = 0;
-                lastArea = currentArea;
-            }
-        }
+        //volley game timer
+        if (gameType == "volley" && maxTimeInArea > 0)
+            UpdateVolleyTimer();
 
         //pause
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 7"))
             PauseHandler();
+    }
+
+
+    private void UpdateVolleyTimer() {
+        areaTimer += Time.deltaTime;
+        volleyTimerText.SetText(Mathf.CeilToInt(maxTimeInArea - areaTimer).ToString());
+
+        //round over
+        if (areaTimer >= maxTimeInArea) {
+            NewRound(lastArea);
+        }
+        else {
+            char currentArea = ball.transform.position.x < 0 ? '1' : '2';
+            //area change, reset timer
+            if (currentArea != lastArea)
+                areaTimer = 0;
+            lastArea = currentArea;
+        }
     }
 
 

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
-//True conditions -> left branch
-//False conditions -> right branch
+/**
+ * Decision tree structure and execution
+ */
 class DecisionTree {
 
 
@@ -19,10 +16,10 @@ class DecisionTree {
     public Func<Dictionary<string, object>, Dictionary<string, object>, bool> Decision { get; set; }
 
 
-    //Left
+    //True conditions
     public List<DecisionTree> Left { get; set; }
 
-    //Right
+    //False conditions
     public List<DecisionTree> Right { get; set; }
 
 

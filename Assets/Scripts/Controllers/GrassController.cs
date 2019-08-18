@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/**
+ * Triggers the respective animation when colliding with a player or a ball
+ */
 public class GrassController : MonoBehaviour {
 
     public Animator animator;

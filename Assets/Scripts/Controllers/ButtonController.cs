@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
+/**
+ * Changes the sprite of a button (on hover) and invokes the respective event when pressed
+ */
 public class ButtonController : MonoBehaviour {
 
     public SpriteRenderer sr;

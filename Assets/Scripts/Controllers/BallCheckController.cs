@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
+/**
+ * Checks to see if the ball is in range of the player (for stops, lifts and kicks)
+ */ 
 public class BallCheckController : MonoBehaviour {
 
     [System.Serializable]

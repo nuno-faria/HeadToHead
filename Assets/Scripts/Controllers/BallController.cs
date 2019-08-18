@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/**
+ * Controls the ball speed and sound
+ */
 public class BallController : MonoBehaviour {
 
     public Rigidbody2D rb;
