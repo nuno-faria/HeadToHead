@@ -92,10 +92,11 @@ public class PlayerController : MonoBehaviour {
         //create new texture with the wanted colors
         Texture2D texture = new Texture2D(256, 1, TextureFormat.RGBA32, false, false);
         texture.filterMode = FilterMode.Point;
-        texture.SetPixels(swapTex.GetPixels());
+        texture.SetPixels(swapTex.GetPixels()); 
         texture.SetPixel(248, 0, color);
         texture.SetPixel(216, 0, secondary);
         texture.Apply();
+
 
         //add texture to shader (new material)
         Material mat = new Material(shader);
@@ -121,7 +122,7 @@ public class PlayerController : MonoBehaviour {
         //ai
         else {
             //state of the game
-            Dictionary<string, dynamic> state = new Dictionary<string, dynamic> {
+            Dictionary<string, double> state = new Dictionary<string, double> {
                 {"selfPosX", transform.position.x },
                 {"selfPosY", transform.position.y },
                 {"otherPosX", otherPlayer.transform.position.x },
@@ -132,7 +133,7 @@ public class PlayerController : MonoBehaviour {
                 {"ballVelY", gameBall.velocity.y }
             };
             //data to be set
-            Dictionary<string, dynamic> data = new Dictionary<string, dynamic> { };
+            Dictionary<string, double> data = new Dictionary<string, double> { };
 
             agent.Act(state, data);
             h = data.ContainsKey("horizontal") ? (float) data["horizontal"] : 0;
@@ -292,7 +293,7 @@ public class PlayerController : MonoBehaviour {
 
 
     public void BallInRange(Rigidbody2D ball) {
-        this.ballInRange = ball;
+        ballInRange = ball;
     }
 
 

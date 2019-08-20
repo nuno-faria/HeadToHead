@@ -10,10 +10,10 @@ class DecisionTree {
     public string Name;
 
     //Set data
-    public Action<Dictionary<string, object>, Dictionary<string, object>> Action { get; set; }
+    public Action<Dictionary<string, double>, Dictionary<string, double>> Action { get; set; }
 
     //Find which branch to follow next
-    public Func<Dictionary<string, object>, Dictionary<string, object>, bool> Decision { get; set; }
+    public Func<Dictionary<string, double>, Dictionary<string, double>, bool> Decision { get; set; }
 
 
     //True conditions
@@ -24,8 +24,8 @@ class DecisionTree {
 
 
     public DecisionTree(string name, 
-                        Action<Dictionary<string, dynamic>, Dictionary<string, dynamic>> action,
-                        Func<Dictionary<string, dynamic>, Dictionary<string, dynamic>, bool> decision,
+                        Action<Dictionary<string, double>, Dictionary<string, double>> action,
+                        Func<Dictionary<string, double>, Dictionary<string, double>, bool> decision,
                         List<DecisionTree> left, 
                         List<DecisionTree> right) {
         Name = name;
@@ -36,7 +36,7 @@ class DecisionTree {
     }
 
 
-    public void Exec(Dictionary<string, object> state, Dictionary<string, object> data) {
+    public void Exec(Dictionary<string, double> state, Dictionary<string, double> data) {
         Action?.Invoke(state, data);
         bool result =  Decision != null ? Decision(state, data) : true;
 

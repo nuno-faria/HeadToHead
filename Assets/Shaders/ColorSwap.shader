@@ -39,7 +39,6 @@ Shader "Hidden/ColorSwap"
 			}
 
 			sampler2D _MainTex;
-			//half4x4 _ColorMatrix;
 			float4 _Color1;
 			float4 _Color2;
 			sampler2D _SwapTex;
@@ -49,19 +48,8 @@ Shader "Hidden/ColorSwap"
 			fixed4 frag(v2f i) : SV_Target{
 				if (!tex2D(_MainTex, i.uv).a)
 					discard;
-				/*
-				if (tex2D(_MainTex, i.uv).a == 0)
-					discard;
-				if ((tex2D(_MainTex, i.uv).r * 255.0) == 248)
-					return _Color1;
-				if ((tex2D(_MainTex, i.uv).r * 255.0) == 216)
-					return _Color2;
-				else
-					return tex2D(_MainTex, i.uv);
-					*/
+
 				return tex2D(_SwapTex, float2(tex2D(_MainTex, i.uv).r, 0));
-				//fixed x = tex2D(_MainTex, i.uv).r;
-				//return _ColorMatrix[x * 3];
 			}
 
 			ENDCG

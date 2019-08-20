@@ -20,7 +20,7 @@ namespace Assets.Scripts.AI {
         }
 
 
-        public void Act(Dictionary<string, dynamic> state, Dictionary<string, dynamic> data) {
+        public void Act(Dictionary<string, double> state, Dictionary<string, double> data) {
             tree.Exec(state, data);
         }
     }

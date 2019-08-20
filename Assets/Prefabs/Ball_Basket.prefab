@@ -134,7 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 2647116398643753939}
   audioSource: {fileID: 4157131972004294289}
-  maxSpeed: 15
+  maxSpeed: 14
   maxVolume: 0.5
 --- !u!82 &4157131972004294289
 AudioSource:
